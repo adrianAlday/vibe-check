@@ -117,7 +117,7 @@ const Home = ({ devices }) => {
 
               <div>turned on:</div>
 
-              <div>{device.connectionStatus === "online" ? "⚡" : "❌"} </div>
+              <div>{device.deviceStatus === "on" ? "⚡" : "❌"} </div>
             </div>
 
             <div>
