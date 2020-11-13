@@ -140,7 +140,9 @@ const Home = ({ devices }) => {
                     <React.Fragment>
                       <div>{label()}:</div>
 
-                      <div>{"🌵 ".repeat(Math.ceil(energy))}</div>
+                      <div className="bar">
+                        {"🌵 ".repeat(Math.ceil(energy))}
+                      </div>
                     </React.Fragment>
                   );
                 })}
@@ -149,19 +151,33 @@ const Home = ({ devices }) => {
           </div>
         ))}
       <style jsx global>{`
+        :root {
+          --bar-font-size: 6px;
+        }
         body {
           font-family: "IBM Plex Sans", serif;
           background-color: #202124;
           color: #d8dbdd;
           max-width: 700px;
           margin: auto;
+          padding: 8px;
         }
         .section {
           margin-bottom: 16px;
         }
         .grid {
           display: grid;
-          grid-template-columns: 150px auto;
+          grid-template-columns: 110px auto;
+          align-items: center;
+        }
+        .bar {
+          font-size: var(--bar-font-size);
+        }
+
+        @media screen and (min-width: 700px) {
+          :root {
+            --bar-font-size: 16px;
+          }
         }
       `}</style>
     </div>
