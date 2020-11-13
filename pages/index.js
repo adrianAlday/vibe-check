@@ -115,7 +115,7 @@ const Home = ({ devices }) => {
 
               <div>{device.connectionStatus === "online" ? "⚡" : "❌"}</div>
 
-              <div>turned on:</div>
+              <div>sending power:</div>
 
               <div>{device.deviceStatus === "on" ? "⚡" : "❌"} </div>
             </div>
@@ -167,7 +167,7 @@ const Home = ({ devices }) => {
         }
         .grid {
           display: grid;
-          grid-template-columns: 110px auto;
+          grid-template-columns: 120px auto;
           align-items: center;
         }
         .bar {
