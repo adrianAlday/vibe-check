@@ -151,6 +151,10 @@ const Home = ({ devices }) => {
       <style jsx global>{`
         body {
           font-family: "IBM Plex Sans", serif;
+          background-color: #202124;
+          color: #d8dbdd;
+          width: 600px;
+          margin: auto;
         }
         .section {
           margin-bottom: 16px;
