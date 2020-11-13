@@ -91,7 +91,7 @@ const Home = ({ devices }) => {
       <Head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+          content="width=device-width, viewport-fit=cover"
         />
 
         <title>vibe check 🌵⚡🌷</title>
