@@ -89,11 +89,6 @@ const Home = ({ devices }) => {
   return (
     <div className="container">
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, viewport-fit=cover"
-        />
-
         <title>vibe check 🌵⚡🌷</title>
 
         <link rel="icon" href="/favicon.ico" />
@@ -158,7 +153,7 @@ const Home = ({ devices }) => {
           font-family: "IBM Plex Sans", serif;
           background-color: #202124;
           color: #d8dbdd;
-          width: 600px;
+          max-width: 700px;
           margin: auto;
         }
         .section {
