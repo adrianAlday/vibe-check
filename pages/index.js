@@ -97,6 +97,11 @@ const Home = ({ devices }) => {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans"
         />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+        />
       </Head>
 
       <div className="section">vibe check 🌵⚡🌷</div>
