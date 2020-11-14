@@ -172,6 +172,7 @@ const Home = ({ devices }) => {
             </div>
           </div>
         ))}
+
       <style jsx global>{`
         :root {
           --bar-font-size: 5px;
