@@ -86,6 +86,8 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ devices }) => {
+  const title = "vibe check 🌵⚡🌷";
+
   const deviceIcon = (device) => {
     switch (device.deviceName) {
       case "Agave":
@@ -117,7 +119,7 @@ const Home = ({ devices }) => {
   return (
     <div className="container">
       <Head>
-        <title>vibe check 🌵⚡🌷</title>
+        <title>{title}</title>
 
         <link rel="icon" href="/favicon.ico" />
 
@@ -127,7 +129,7 @@ const Home = ({ devices }) => {
         />
       </Head>
 
-      <div className="section">vibe check 🌵⚡🌷</div>
+      <div className="section">{title}</div>
 
       {devices
         .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
