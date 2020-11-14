@@ -118,14 +118,17 @@ const Dashboard = (props) => {
                       <React.Fragment key={`${device.uuid}-${index}`}>
                         <div>{dayLabel(index, array)}:</div>
 
-                        <div>
-                          <span className="bar">
+                        <div className="flex">
+                          <div className="bar">
                             {"🌵 ".repeat(energyRoundedTo1)}
-                          </span>
-                          &nbsp;
-                          {reverseIndex(index, array) === 0
-                            ? roundedNumber(energy, 0.01)
-                            : energyRoundedTo1}
+                          </div>
+
+                          <div>
+                            &nbsp;
+                            {reverseIndex(index, array) === 0
+                              ? roundedNumber(energy, 0.01)
+                              : energyRoundedTo1}
+                          </div>
                         </div>
                       </React.Fragment>
                     );
@@ -137,7 +140,7 @@ const Dashboard = (props) => {
 
       <style jsx global>{`
         :root {
-          --bar-font-size: 5px;
+          --bar-font-size: 4px;
         }
         body {
           font-family: "IBM Plex Sans", serif;
@@ -155,13 +158,17 @@ const Dashboard = (props) => {
           grid-template-columns: 120px auto;
           align-items: center;
         }
+        .flex {
+          display: flex;
+          align-items: center;
+        }
         .bar {
           font-size: var(--bar-font-size);
         }
 
         @media screen and (min-width: 700px) {
           :root {
-            --bar-font-size: 10px;
+            --bar-font-size: 12px;
           }
         }
       `}</style>
