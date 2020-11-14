@@ -62,13 +62,12 @@ const fetchData = async () => {
 
   const energyHistoryData = await Promise.all(deviceRequests("energymonth"));
 
+  const findMatchingEntry = (originalEntry, arrayOfEntries) =>
+    arrayOfEntries.find((entry) => entry.uuid === originalEntry.uuid);
+
   const devices = uniqueDevices.map((device) => ({
-    ...energyHistoryData.find(
-      (energyHistoryData) => energyHistoryData.uuid === device.uuid
-    ),
-    ...deviceDetailData.find(
-      (deviceDetailData) => deviceDetailData.uuid === device.uuid
-    ),
+    ...findMatchingEntry(device, energyHistoryData),
+    ...findMatchingEntry(device, deviceDetailData),
     ...device,
   }));
 
