@@ -177,7 +177,7 @@ const Home = ({ devices }) => {
 
         @media screen and (min-width: 700px) {
           :root {
-            --bar-font-size: 16px;
+            --bar-font-size: 10px;
           }
         }
       `}</style>
