@@ -104,7 +104,7 @@ const Home = ({ devices }) => {
       {devices
         .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
         .map((device) => (
-          <div className="section">
+          <div className="section" key={device.uuid}>
             <div className="section">
               {["Agave", "Saguaro"].includes(device.deviceName) ? "🌵" : "🌷"}{" "}
               {device.deviceName.toLowerCase()}
@@ -137,7 +137,7 @@ const Home = ({ devices }) => {
                   };
 
                   return (
-                    <React.Fragment>
+                    <React.Fragment key={`${device.uuid}-${index}`}>
                       <div>{label()}:</div>
 
                       <div className="bar">
