@@ -79,9 +79,11 @@ const fetchData = async () => {
 export const getStaticProps = async () => {
   const data = await fetchData();
 
+  const minutesUntilStale = 5;
+
   return {
     props: data,
-    revalidate: 60 * 5,
+    revalidate: minutesUntilStale * 60,
   };
 };
 
