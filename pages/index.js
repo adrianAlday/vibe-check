@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Head from "next/head";
 
+const minutesUntilStale = 5;
+
 export const getStaticProps = async () => {
   const data = await fetchData();
-
-  const minutesUntilStale = 5;
 
   return {
     props: data,
