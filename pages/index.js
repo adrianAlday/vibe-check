@@ -153,6 +153,7 @@ const Home = ({ devices }) => {
 
             <div>
               <div className="section">energy drawn:</div>
+
               <div className="grid">
                 {device.data
                   .slice(-1 * daysToShow)
