@@ -1,9 +1,8 @@
 import axios from "axios";
 import MD5 from "md5.js";
+import { emptyString } from "../index";
 
 export const fetchData = async () => {
-  const emptyString = "";
-
   const baseRequest = {
     acceptLanguage: "en",
     timeZone: "America/New_York",
@@ -70,11 +69,7 @@ export const fetchData = async () => {
     ...device,
   }));
 
-  const timestamp = new Date()
-    .toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
-    .toLowerCase()
-    .replace(" ", emptyString)
-    .replace("m", emptyString);
+  const timestamp = Date.now();
 
   return { devices, timestamp };
 };

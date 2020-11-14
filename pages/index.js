@@ -5,6 +5,8 @@ import Head from "next/head";
 
 const minutesUntilStale = 5;
 
+export const emptyString = "";
+
 export const getStaticProps = async () => {
   const data = await fetchData();
 
@@ -76,7 +78,14 @@ const Dashboard = (props) => {
 
       <div className="mb">{title}</div>
 
-      <div className="mb">updated {data.timestamp}</div>
+      <div className="mb">
+        updated{" "}
+        {new Date(data.timestamp)
+          .toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+          .toLowerCase()
+          .replace(" ", emptyString)
+          .replace("m", emptyString)}
+      </div>
 
       {data.devices
         .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
