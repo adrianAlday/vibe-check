@@ -86,6 +86,18 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ devices }) => {
+  const deviceIcon = (device) => {
+    switch (device.deviceName) {
+      case "Agave":
+      case "Saguaro":
+        return "🌵";
+      case "Orchid":
+      case "Kalea Lilly":
+        return "🌷";
+      default:
+        return emptyString;
+    }
+  };
   return (
     <div className="container">
       <Head>
@@ -106,8 +118,7 @@ const Home = ({ devices }) => {
         .map((device) => (
           <div className="section" key={device.uuid}>
             <div className="section">
-              {["Agave", "Saguaro"].includes(device.deviceName) ? "🌵" : "🌷"}{" "}
-              {device.deviceName.toLowerCase()}
+              {deviceIcon(device)} {device.deviceName.toLowerCase()}
             </div>
 
             <div className="grid section">
