@@ -70,7 +70,13 @@ export const fetchData = async () => {
     ...device,
   }));
 
-  return { devices };
+  const timestamp = new Date()
+    .toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+    .toLowerCase()
+    .replace(" ", emptyString)
+    .replace("m", emptyString);
+
+  return { devices, timestamp };
 };
 
 const handler = async (req, res) => {

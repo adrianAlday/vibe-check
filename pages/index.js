@@ -15,13 +15,11 @@ export const getStaticProps = async () => {
 };
 
 const Dashboard = (props) => {
-  const [devices, setDevices] = useState(props.devices);
+  const [data, setData] = useState(props);
 
   useEffect(() => {
     const refreshDevices = setInterval(async () => {
-      setDevices(
-        await axios.get("api/devices").then((response) => response.data.devices)
-      );
+      setData(await axios.get("api/devices").then((response) => response.data));
     }, minutesUntilStale * 60 * 1000);
     return () => clearInterval(refreshDevices);
   }, []);
@@ -73,7 +71,9 @@ const Dashboard = (props) => {
 
       <div className="mb">{title}</div>
 
-      {devices
+      <div className="mb">updated {data.timestamp}</div>
+
+      {data.devices
         .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
         .map((device) => (
           <div className="mb" key={device.uuid}>
