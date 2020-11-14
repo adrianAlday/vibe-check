@@ -43,8 +43,10 @@ const Dashboard = (props) => {
 
   const daysToShow = 8;
 
-  const dayLabel = (index, days) => {
-    const daysAgo = days.length - 1 - index;
+  const reverseIndex = (index, array) => array.length - 1 - index;
+
+  const dayLabel = (index, array) => {
+    const daysAgo = reverseIndex(index, array);
 
     switch (daysAgo) {
       case 0:
@@ -55,6 +57,9 @@ const Dashboard = (props) => {
         return `${daysAgo} days ago`;
     }
   };
+
+  const roundedNumber = (value, nearest) =>
+  Math.ceil(value / nearest) * nearest;
 
   return (
     <div className="container">
@@ -97,15 +102,22 @@ const Dashboard = (props) => {
               <div className="grid">
                 {device.data
                   .slice(-1 * daysToShow)
-                  .map((energy, index, array) => (
-                    <React.Fragment key={`${device.uuid}-${index}`}>
-                      <div>{dayLabel(index, array)}:</div>
+                  .map((energy, index, array) => {
+                    const energyRoundedTo1 = roundedNumber(energy, 1);
 
-                      <div className="bar">
-                        {"🌵 ".repeat(Math.ceil(energy))}
-                      </div>
-                    </React.Fragment>
-                  ))}
+                    return (
+                      <React.Fragment key={`${device.uuid}-${index}`}>
+                        <div>{dayLabel(index, array)}:</div>
+
+                        <div className="bar">
+                          {"🌵 ".repeat(energyRoundedTo1)}{" "}
+                          {reverseIndex(index, array) === 0
+                            ? roundedNumber(energy, 0.01)
+                            : energyRoundedTo1}
+                        </div>
+                      </React.Fragment>
+                    );
+                  })}
               </div>
             </div>
           </div>
