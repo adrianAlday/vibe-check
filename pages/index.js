@@ -87,7 +87,7 @@ export const getStaticProps = async () => {
   };
 };
 
-const Home = ({ devices }) => {
+const Dashboard = ({ devices }) => {
   const title = "vibe check 🌵⚡🌷";
 
   const deviceIcon = (device) => {
@@ -207,4 +207,4 @@ const Home = ({ devices }) => {
   );
 };
 
-export default Home;
+export default Dashboard;
