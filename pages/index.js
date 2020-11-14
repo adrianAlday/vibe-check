@@ -59,7 +59,7 @@ const Dashboard = (props) => {
   };
 
   const roundedNumber = (value, nearest) =>
-  Math.ceil(value / nearest) * nearest;
+    Math.ceil(value / nearest) * nearest;
 
   return (
     <div className="container">
