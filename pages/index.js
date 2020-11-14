@@ -124,8 +124,8 @@ const Home = ({ devices }) => {
             <div>
               <div className="section">energy drawn:</div>
               <div className="grid">
-                {device.data.map((energy, index) => {
-                  const daysAgo = device.data.length - 1 - index;
+                {device.data.slice(-8).map((energy, index, array) => {
+                  const daysAgo = array.length - 1 - index;
                   const label = () => {
                     switch (daysAgo) {
                       case 0:
