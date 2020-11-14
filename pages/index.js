@@ -133,17 +133,17 @@ const Home = ({ devices }) => {
         />
       </Head>
 
-      <div className="section">{title}</div>
+      <div className="mb">{title}</div>
 
       {devices
         .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
         .map((device) => (
-          <div className="section" key={device.uuid}>
-            <div className="section">
+          <div className="mb" key={device.uuid}>
+            <div className="mb">
               {deviceIcon(device)} {device.deviceName.toLowerCase()}
             </div>
 
-            <div className="grid section">
+            <div className="grid mb">
               <div>getting power:</div>
 
               <div>{onIcon(device.connectionStatus === "online")}</div>
@@ -154,7 +154,7 @@ const Home = ({ devices }) => {
             </div>
 
             <div>
-              <div className="section">energy drawn:</div>
+              <div className="mb">energy drawn:</div>
 
               <div className="grid">
                 {device.data
@@ -184,7 +184,7 @@ const Home = ({ devices }) => {
           margin: auto;
           padding: 8px;
         }
-        .section {
+        .mb {
           margin-bottom: 16px;
         }
         .grid {
