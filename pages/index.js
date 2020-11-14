@@ -94,7 +94,7 @@ const Home = ({ devices }) => {
       case "Saguaro":
         return "🌵";
       case "Orchid":
-      case "Kalea Lilly":
+      case "Kale-a Lily":
         return "🌷";
       default:
         return emptyString;
