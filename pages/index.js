@@ -60,11 +60,11 @@ const fetchData = async () => {
 
   const deviceDetailData = await Promise.all(deviceRequests("devicedetail"));
 
-  const energyWeekData = await Promise.all(deviceRequests("energyweek"));
+  const energyHistoryData = await Promise.all(deviceRequests("energymonth"));
 
   const devices = uniqueDevices.map((device) => ({
-    ...energyWeekData.find(
-      (energyWeekData) => energyWeekData.uuid === device.uuid
+    ...energyHistoryData.find(
+      (energyHistoryData) => energyHistoryData.uuid === device.uuid
     ),
     ...deviceDetailData.find(
       (deviceDetailData) => deviceDetailData.uuid === device.uuid
