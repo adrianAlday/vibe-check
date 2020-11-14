@@ -98,6 +98,22 @@ const Home = ({ devices }) => {
         return emptyString;
     }
   };
+
+  const daysToShow = 8;
+
+  const dayLabel = (index, days) => {
+    const daysAgo = days.length - 1 - index;
+
+    switch (daysAgo) {
+      case 0:
+        return "today";
+      case 1:
+        return "yesterday";
+      default:
+        return `${daysAgo} days ago`;
+    }
+  };
+
   return (
     <div className="container">
       <Head>
@@ -134,29 +150,17 @@ const Home = ({ devices }) => {
             <div>
               <div className="section">energy drawn:</div>
               <div className="grid">
-                {device.data.slice(-8).map((energy, index, array) => {
-                  const daysAgo = array.length - 1 - index;
-                  const label = () => {
-                    switch (daysAgo) {
-                      case 0:
-                        return "today";
-                      case 1:
-                        return "yesterday";
-                      default:
-                        return `${daysAgo} days ago`;
-                    }
-                  };
-
-                  return (
+                {device.data
+                  .slice(-1 * daysToShow)
+                  .map((energy, index, array) => (
                     <React.Fragment key={`${device.uuid}-${index}`}>
-                      <div>{label()}:</div>
+                      <div>{dayLabel(index, array)}:</div>
 
                       <div className="bar">
                         {"🌵 ".repeat(Math.ceil(energy))}
                       </div>
                     </React.Fragment>
-                  );
-                })}
+                  ))}
               </div>
             </div>
           </div>
