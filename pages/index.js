@@ -1,5 +1,5 @@
 import axios from "axios";
-import CryptoJS from "crypto-js";
+import MD5 from "md5.js";
 import Head from "next/head";
 
 const fetchData = async () => {
@@ -19,7 +19,7 @@ const fetchData = async () => {
       ...baseRequest,
       method: "login",
       email: process.env.EMAIL,
-      password: CryptoJS.MD5(process.env.PASSWORD).toString(),
+      password: new MD5().update(process.env.PASSWORD).digest("hex"),
     })
     .then((response) => response.data);
 
