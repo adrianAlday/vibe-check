@@ -118,8 +118,11 @@ const Dashboard = (props) => {
                       <React.Fragment key={`${device.uuid}-${index}`}>
                         <div>{dayLabel(index, array)}:</div>
 
-                        <div className="bar">
-                          {"🌵 ".repeat(energyRoundedTo1)}{" "}
+                        <div>
+                          <span className="bar">
+                            {"🌵 ".repeat(energyRoundedTo1)}
+                          </span>
+                          &nbsp;
                           {reverseIndex(index, array) === 0
                             ? roundedNumber(energy, 0.01)
                             : energyRoundedTo1}
