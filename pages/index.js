@@ -60,9 +60,6 @@ const Dashboard = (props) => {
     }
   };
 
-  const roundedNumber = (value, nearest) =>
-    Math.ceil(value / nearest) * nearest;
-
   return (
     <div className="container">
       <Head>
@@ -112,7 +109,7 @@ const Dashboard = (props) => {
                 {device.data
                   .slice(-1 * daysToShow)
                   .map((energy, index, array) => {
-                    const energyRoundedTo1 = roundedNumber(energy, 1);
+                    const energyRoundedTo1 = energy.toFixed(0)
 
                     return (
                       <React.Fragment key={`${device.uuid}-${index}`}>
@@ -126,7 +123,7 @@ const Dashboard = (props) => {
                           <div>
                             &nbsp;
                             {reverseIndex(index, array) === 0
-                              ? roundedNumber(energy, 0.01)
+                              ? energy.toFixed(2)
                               : energyRoundedTo1}
                           </div>
                         </div>
