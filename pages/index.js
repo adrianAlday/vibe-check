@@ -39,7 +39,7 @@ const fetchData = async () => {
     .then((response) => response.data);
 
   const uniqueDevices = deviceData.result.list.filter(
-    (device) => device.subDeviceNo === 1
+    (device) => device.deviceType === "ESO15-TB" && device.subDeviceNo === 1
   );
 
   const deviceRequests = (path) =>
