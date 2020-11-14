@@ -36,7 +36,7 @@ const Dashboard = (props) => {
       case "Orchid":
       case "Kale-a Lily":
         return "🌷";
-      case "Cactus Lights":
+      case "Cacti Lights":
         return "💡";
       case "Front Porch":
         return "🏡";
