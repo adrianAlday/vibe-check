@@ -101,6 +101,8 @@ const Home = ({ devices }) => {
     }
   };
 
+  const onIcon = (boolean) => (boolean ? "⚡" : "❌");
+
   const daysToShow = 8;
 
   const dayLabel = (index, days) => {
@@ -142,11 +144,11 @@ const Home = ({ devices }) => {
             <div className="grid section">
               <div>getting power:</div>
 
-              <div>{device.connectionStatus === "online" ? "⚡" : "❌"}</div>
+              <div>{onIcon(device.connectionStatus === "online")}</div>
 
               <div>sending power:</div>
 
-              <div>{device.deviceStatus === "on" ? "⚡" : "❌"} </div>
+              <div>{onIcon(device.deviceStatus === "on")} </div>
             </div>
 
             <div>
