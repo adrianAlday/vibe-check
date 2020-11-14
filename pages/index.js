@@ -153,7 +153,7 @@ const Home = ({ devices }) => {
         ))}
       <style jsx global>{`
         :root {
-          --bar-font-size: 6px;
+          --bar-font-size: 5px;
         }
         body {
           font-family: "IBM Plex Sans", serif;
