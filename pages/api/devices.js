@@ -37,16 +37,23 @@ export const fetchData = async () => {
     .then((response) => response.data);
 
   const uniqueDevices = deviceData.result.list.filter(
-    (device) => device.deviceType === "ESO15-TB" && device.subDeviceNo === 1
+    (device) => device.subDeviceNo !== 2
   );
 
-  const deviceRequests = (path) =>
+  const devicePath = {
+    "ESO15-TB": "outdoorsocket15a",
+    "ESW15-USA": "15a",
+  };
+
+  const deviceRequests = (dataPath) =>
     uniqueDevices.map((device) => {
       const { uuid } = device;
 
       return axios
         .post(
-          `https://smartapi.vesync.com/outdoorsocket15a/v1/device/${path}`,
+          `https://smartapi.vesync.com/${
+            devicePath[device.deviceType]
+          }/v1/device/${dataPath}`,
           {
             ...baseRequest,
             ...authenticatedRequest,

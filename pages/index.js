@@ -36,6 +36,10 @@ const Dashboard = (props) => {
       case "Orchid":
       case "Kale-a Lily":
         return "🌷";
+      case "Cactus Lights":
+        return "💡";
+      case "Front Porch":
+        return "🏡";
       default:
         return emptyString;
     }
@@ -85,7 +89,8 @@ const Dashboard = (props) => {
       </div>
 
       {data.devices
-        .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
+        .sort((a, b) => (a.deviceName < b.deviceName ? 1 : -1))
+        .sort((a, b) => (a.deviceType > b.deviceType ? 1 : -1))
         .map((device) => (
           <div className="mb" key={device.uuid}>
             <div className="mb">
@@ -109,7 +114,7 @@ const Dashboard = (props) => {
                 {device.data
                   .slice(-1 * daysToShow)
                   .map((energy, index, array) => {
-                    const energyRoundedTo1 = energy.toFixed(0)
+                    const energyRoundedTo1 = energy.toFixed(0);
 
                     return (
                       <React.Fragment key={`${device.uuid}-${index}`}>
@@ -117,7 +122,7 @@ const Dashboard = (props) => {
 
                         <div className="flex">
                           <div className="bar">
-                            {"🌵 ".repeat(energyRoundedTo1)}
+                            {`${deviceIcon(device)} `.repeat(energyRoundedTo1)}
                           </div>
 
                           <div>
