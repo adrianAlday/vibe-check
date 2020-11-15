@@ -40,20 +40,20 @@ export const fetchData = async () => {
     (device) => device.subDeviceNo !== 2
   );
 
-  const devicePath = {
+  const devicePaths = {
     "ESO15-TB": "outdoorsocket15a",
     "ESW15-USA": "15a",
   };
 
-  const deviceRequests = (dataPath) =>
+  const deviceRequests = (dataType) =>
     uniqueDevices.map((device) => {
       const { uuid } = device;
 
       return axios
         .post(
           `https://smartapi.vesync.com/${
-            devicePath[device.deviceType]
-          }/v1/device/${dataPath}`,
+            devicePaths[device.deviceType]
+          }/v1/device/${dataType}`,
           {
             ...baseRequest,
             ...authenticatedRequest,
