@@ -5,8 +5,6 @@ import Head from "next/head";
 
 const minutesUntilStale = 5;
 
-export const emptyString = "";
-
 export const getStaticProps = async () => {
   const data = await fetchData();
 
@@ -27,6 +25,8 @@ const Dashboard = (props) => {
   }, []);
 
   const title = "vibe check 🌵⚡🌷";
+
+  const emptyString = "";
 
   const deviceIcon = (device) => {
     switch (device.deviceName) {

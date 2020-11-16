@@ -1,0 +1,56 @@
+import {
+  fetchToken,
+  fetchDeviceData,
+  devicePaths,
+  baseRequest,
+} from "../../common/helpers";
+import axios from "axios";
+
+const DEVICE_STATUS = {
+  ON: "on",
+  OFF: "off",
+};
+
+export const flashDeviceStatus = async (req) => {
+  const { deviceName, flashCount } = req.body;
+
+  const token = await fetchToken;
+
+  const device = (await fetchDeviceData(token)).find(
+    (device) => device.deviceName === deviceName
+  );
+
+  const { deviceType, uuid, deviceStatus } = device;
+
+  const patchDeviceStatus = (status) =>
+    axios.put(
+      `https://smartapi.vesync.com/${devicePaths[deviceType]}/v1/device/devicestatus`,
+      {
+        ...baseRequest,
+        ...token,
+        uuid,
+        status,
+      }
+    );
+
+  const flashDeviceOneCycle = async () => {
+    await patchDeviceStatus(
+      deviceStatus === DEVICE_STATUS.ON ? DEVICE_STATUS.OFF : DEVICE_STATUS.ON
+    );
+    await patchDeviceStatus(deviceStatus);
+  };
+
+  for (let step = 0; step < flashCount; step++) {
+    await flashDeviceOneCycle();
+  }
+
+  return { deviceName, flashCount, timestamp: Date.now() };
+};
+
+const handler = async (req, res) => {
+  req.headers.authorization === process.env.FLASHER_KEY
+    ? res.json(await flashDeviceStatus(req))
+    : res.status(403).end();
+};
+
+export default handler;

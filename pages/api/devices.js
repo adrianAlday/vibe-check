@@ -1,49 +1,18 @@
+import {
+  fetchToken,
+  fetchDeviceData,
+  devicePaths,
+  baseRequest,
+  phoneRequest,
+} from "../../common/helpers";
 import axios from "axios";
-import MD5 from "md5.js";
-import { emptyString } from "../index";
 
 export const fetchData = async () => {
-  const baseRequest = {
-    acceptLanguage: "en",
-    timeZone: "America/New_York",
-    phoneBrand: emptyString,
-    phoneOS: emptyString,
-    appVersion: emptyString,
-    traceId: emptyString,
-  };
+  const token = await fetchToken;
 
-  const loginData = await axios
-    .post("https://smartapi.vesync.com/cloud/v1/user/login", {
-      ...baseRequest,
-      method: "login",
-      email: process.env.EMAIL,
-      password: new MD5().update(process.env.PASSWORD).digest("hex"),
-    })
-    .then((response) => response.data);
-
-  const { accountID, token } = loginData.result;
-
-  const authenticatedRequest = {
-    accountID,
-    token,
-  };
-
-  const deviceData = await axios
-    .post("https://smartapi.vesync.com/cloud/v1/deviceManaged/devices", {
-      ...baseRequest,
-      ...authenticatedRequest,
-      method: "devices",
-    })
-    .then((response) => response.data);
-
-  const uniqueDevices = deviceData.result.list.filter(
+  const uniqueDevices = (await fetchDeviceData(token)).filter(
     (device) => device.subDeviceNo !== 2
   );
-
-  const devicePaths = {
-    "ESO15-TB": "outdoorsocket15a",
-    "ESW15-USA": "15a",
-  };
 
   const deviceRequests = (dataType) =>
     uniqueDevices.map((device) => {
@@ -56,8 +25,9 @@ export const fetchData = async () => {
           }/v1/device/${dataType}`,
           {
             ...baseRequest,
-            ...authenticatedRequest,
-            uuid: uuid,
+            ...phoneRequest,
+            ...token,
+            uuid,
           }
         )
         .then((response) => ({ ...response.data, uuid }));
@@ -76,9 +46,7 @@ export const fetchData = async () => {
     ...device,
   }));
 
-  const timestamp = Date.now();
-
-  return { devices, timestamp };
+  return { devices, timestamp: Date.now() };
 };
 
 const handler = async (req, res) => {
