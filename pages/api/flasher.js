@@ -48,9 +48,11 @@ export const flashDeviceStatus = async (req) => {
 };
 
 const handler = async (req, res) => {
-  req.headers.authorization === process.env.FLASHER_KEY
-    ? res.json(await flashDeviceStatus(req))
-    : res.status(403).end();
+  !req.query.auth
+    ? res.status(401).end()
+    : req.query.auth !== process.env.FLASHER_KEY
+    ? res.status(403).end()
+    : res.json(await flashDeviceStatus(req));
 };
 
 export default handler;
