@@ -54,7 +54,7 @@ const handler = async (req, res) => {
     res.status(403).end();
   }
 
-  flashDeviceStatus(req);
+  await flashDeviceStatus(req);
   res.status(200).end();
 };
 
