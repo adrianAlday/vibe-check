@@ -43,16 +43,19 @@ export const flashDeviceStatus = async (req) => {
   for (let step = 0; step < flashCount; step++) {
     await flashDeviceOneCycle();
   }
-
-  return { deviceName, flashCount, timestamp: Date.now() };
 };
 
 const handler = async (req, res) => {
-  !req.query.auth
-    ? res.status(401).end()
-    : req.query.auth !== process.env.FLASHER_KEY
-    ? res.status(403).end()
-    : res.json(await flashDeviceStatus(req));
+  if (!req.query.auth) {
+    res.status(401).end();
+  }
+
+  if (req.query.auth !== process.env.FLASHER_KEY) {
+    res.status(403).end();
+  }
+
+  flashDeviceStatus(req);
+  res.status(200).end();
 };
 
 export default handler;
