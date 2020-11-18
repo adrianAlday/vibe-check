@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "pages/api/flasher.js": {
-      "maxDuration": 10
-    }
-  }
-}
