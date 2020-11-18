@@ -16,9 +16,15 @@ export const flashDeviceStatus = async (req) => {
 
   const token = await fetchToken;
 
-  const device = (await fetchDeviceData(token)).find(
+  const devices = await fetchDeviceData(token)
+
+  console.log(devices);
+
+  const device = devices.find(
     (device) => device.deviceName === deviceName
   );
+
+  console.log(device);
 
   const { deviceType, uuid, deviceStatus } = device;
 
