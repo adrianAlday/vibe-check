@@ -12,7 +12,9 @@ const DEVICE_STATUS = {
 };
 
 export const flashDeviceStatus = async (req) => {
-  const { deviceName, flashCount } = req.body;
+  let { deviceName, flashCount } = req.body;
+  deviceName = deviceName || process.env.FLASHER_NAME;
+  flashCount = flashCount || process.env.FLASHER_COUNT;
 
   const token = await fetchToken;
 
