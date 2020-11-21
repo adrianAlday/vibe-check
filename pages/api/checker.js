@@ -59,11 +59,10 @@ export const fetchInfo = async () => {
       const trimmedData = data.slice(1, -1);
       const average =
         trimmedData.reduce((a, b) => a + b, 0) / trimmedData.length;
-      const expected = average * percentOfDayElapsed;
-      const today = energyConsumptionOfToday;
-      const hoursBehindExpected = ((expected - today) / (average / 24)).toFixed(
-        1
-      );
+      const hoursBehindExpected = (
+        (average * percentOfDayElapsed - energyConsumptionOfToday) /
+        (average / 24)
+      ).toFixed(1);
 
       return {
         deviceName,
