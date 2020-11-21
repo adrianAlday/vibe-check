@@ -11,12 +11,12 @@ import twilio from "twilio";
 export const fetchInfo = async () => {
   const token = await fetchToken;
 
-  const uniqueDevices = (await fetchDeviceData(token)).filter(
+  const tubDevices = (await fetchDeviceData(token)).filter(
     (device) => device.subDeviceNo === 1
   );
 
   const deviceRequests = (dataType) =>
-    uniqueDevices.map((device) => {
+    tubDevices.map((device) => {
       const { uuid } = device;
 
       return axios
@@ -49,7 +49,7 @@ export const fetchInfo = async () => {
   const findMatchingEntry = (originalEntry, arrayOfEntries) =>
     arrayOfEntries.find((entry) => entry.uuid === originalEntry.uuid);
 
-  const message = uniqueDevices
+  const message = tubDevices
     .map((device) => ({
       ...findMatchingEntry(device, energyHistoryData),
       ...device,
