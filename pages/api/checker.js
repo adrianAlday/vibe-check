@@ -69,7 +69,7 @@ export const fetchInfo = async () => {
         hoursBehindExpected,
       };
     })
-    .filter((device) => device.hoursBehindExpected >= -99)
+    .filter((device) => device.hoursBehindExpected >= 2)
     .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
     .map(
       (device) =>
