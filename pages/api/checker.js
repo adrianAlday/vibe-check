@@ -39,13 +39,24 @@ export const fetchDevicePace = async (req) => {
     .join(", ");
 
   const message = requestedMessage
-    ? await new twilio(process.env.TWILIO_ID, process.env.TWILIO_KEY).messages
-        .create({
-          from: process.env.TWILIO_NUMBER,
-          to: process.env.CHECKER_RECIPIENT,
-          body: requestedMessage,
-        })
-        .then((response) => response.body)
+    ? await Promise.all(
+        process.env.CHECKER_RECIPIENTS.split(",").map(
+          async (recipient) =>
+            await new twilio(
+              process.env.TWILIO_ID,
+              process.env.TWILIO_KEY
+            ).messages
+              .create({
+                from: process.env.TWILIO_NUMBER,
+                to: recipient,
+                body: requestedMessage,
+              })
+              .then((response) => {
+                const { to, body } = response;
+                return { to, body };
+              })
+        )
+      )
     : "all good";
 
   return { message, timeString };
