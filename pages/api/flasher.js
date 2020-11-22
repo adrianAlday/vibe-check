@@ -1,6 +1,5 @@
 import {
-  fetchToken,
-  fetchDeviceData,
+  fetchDetailedData,
   devicePaths,
   baseRequest,
 } from "../../common/helpers";
@@ -16,13 +15,11 @@ export const flashDeviceStatus = async (req) => {
   deviceName = deviceName || process.env.FLASHER_NAME;
   flashCount = flashCount || process.env.FLASHER_COUNT;
 
-  const token = await fetchToken;
-
-  const device = (await fetchDeviceData(token)).find(
+  const { devices, token, timeString } = await fetchDetailedData(
     (device) => device.deviceName === deviceName
   );
 
-  const { deviceType, uuid, deviceStatus } = device;
+  const { deviceType, uuid, deviceStatus } = devices[0];
 
   const patchDeviceStatus = (status) =>
     axios.put(
@@ -46,7 +43,7 @@ export const flashDeviceStatus = async (req) => {
     await flashDeviceOneCycle();
   }
 
-  return { deviceName, flashCount, timestamp: Date.now() };
+  return { deviceName, flashCount, timeString };
 };
 
 const handler = async (req, res) => {

@@ -81,7 +81,7 @@ const Dashboard = (props) => {
 
       <div className="mb">
         updated{" "}
-        {new Date(data.timestamp)
+        {new Date(data.time)
           .toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
           .toLowerCase()
           .replace(" ", emptyString)
