@@ -1,4 +1,4 @@
-import { fetchData } from "./api/devices";
+import { fetchDeviceData } from "./api/devices";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Head from "next/head";
@@ -6,7 +6,7 @@ import Head from "next/head";
 const minutesUntilStale = 5;
 
 export const getStaticProps = async () => {
-  const data = await fetchData();
+  const data = await fetchDeviceData();
 
   return {
     props: data,
