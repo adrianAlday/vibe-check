@@ -1,7 +1,7 @@
 import { fetchDetailedData } from "../../common/helpers";
 import twilio from "twilio";
 
-export const fetchInfo = async () => {
+export const fetchDevicePace = async (req) => {
   const { devices, timeString } = await fetchDetailedData(
     (device) => device.subDeviceNo === 1,
     ["energymonth"]
@@ -26,7 +26,9 @@ export const fetchInfo = async () => {
         hoursBehindExpected,
       };
     })
-    .filter((device) => device.hoursBehindExpected >= 2)
+    .filter(
+      (device) => req.query.force === "true" || device.hoursBehindExpected >= 2
+    )
     .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
     .map(
       (device) =>
@@ -54,7 +56,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.CHECKER_KEY
     ? res.status(403).end()
-    : res.json(await fetchInfo());
+    : res.json(await fetchDevicePace(req));
 };
 
 export default handler;
