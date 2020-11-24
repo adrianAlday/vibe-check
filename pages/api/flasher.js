@@ -2,6 +2,7 @@ import {
   fetchDetailedData,
   devicePaths,
   baseRequest,
+  messageOnError,
 } from "../../common/helpers";
 import axios from "axios";
 
@@ -51,7 +52,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.FLASHER_KEY
     ? res.status(403).end()
-    : res.json(await flashDeviceStatus(req));
+    : res.json(await messageOnError(flashDeviceStatus(req), "flasher"));
 };
 
 export default handler;

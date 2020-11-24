@@ -1,5 +1,8 @@
-import { fetchDetailedData } from "../../common/helpers";
-import twilio from "twilio";
+import {
+  fetchDetailedData,
+  sendMessage,
+  messageOnError,
+} from "../../common/helpers";
 
 export const fetchDevicePace = async (req) => {
   const { devices, timeString } = await fetchDetailedData(
@@ -39,24 +42,7 @@ export const fetchDevicePace = async (req) => {
     .join(", ");
 
   const message = requestedMessage
-    ? await Promise.all(
-        process.env.CHECKER_RECIPIENTS.split(",").map(
-          async (recipient) =>
-            await new twilio(
-              process.env.TWILIO_ID,
-              process.env.TWILIO_KEY
-            ).messages
-              .create({
-                from: process.env.TWILIO_NUMBER,
-                to: recipient,
-                body: requestedMessage,
-              })
-              .then((response) => {
-                const { to, body } = response;
-                return { to, body };
-              })
-        )
-      )
+    ? await sendMessage(requestedMessage)
     : "all good";
 
   return { message, timeString };
@@ -67,7 +53,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.CHECKER_KEY
     ? res.status(403).end()
-    : res.json(await fetchDevicePace(req));
+    : res.json(await messageOnError(fetchDevicePace(req), "checker"));
 };
 
 export default handler;

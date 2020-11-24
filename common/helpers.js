@@ -1,5 +1,6 @@
 import axios from "axios";
 import MD5 from "md5.js";
+import twilio from "twilio";
 
 export const baseRequest = {
   acceptLanguage: "en",
@@ -94,3 +95,26 @@ export const fetchDetailedData = async (filterDevices, pathArray = []) => {
 
   return { token, devices, time, timeString };
 };
+
+export const sendMessage = async (message) =>
+  await Promise.all(
+    process.env.CHECKER_RECIPIENTS.split(",").map(
+      async (recipient) =>
+        await new twilio(process.env.TWILIO_ID, process.env.TWILIO_KEY).messages
+          .create({
+            from: process.env.TWILIO_NUMBER,
+            to: recipient,
+            body: message,
+          })
+          .then((response) => {
+            const { to, body } = response;
+            return { to, body };
+          })
+    )
+  );
+
+export const messageOnError = async (wrappedFunction, endpoint) =>
+  await wrappedFunction.catch(async (error) => {
+    await sendMessage(`${endpoint} error: ${error}`);
+    return error;
+  });
