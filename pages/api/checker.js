@@ -16,9 +16,8 @@ export const fetchDevicePace = async (req) => {
   const requestedMessage = devices
     .map((device) => {
       const { data, energyConsumptionOfToday, deviceName } = device;
-      const trimmedData = data.slice(1, -1);
-      const average =
-        trimmedData.reduce((a, b) => a + b, 0) / trimmedData.length;
+      data.pop();
+      const average = data.reduce((a, b) => a + b, 0) / data.length;
       const hoursBehindExpected = (
         (average * percentOfDayElapsed - energyConsumptionOfToday) /
         (average / 24)
