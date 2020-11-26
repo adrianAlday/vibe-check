@@ -3,7 +3,7 @@ import { fetchDetailedData } from "../../common/helpers";
 export const fetchDeviceData = async () => {
   const { devices, time, timeString } = await fetchDetailedData(
     (device) => device.subDeviceNo !== 2,
-    ["devicedetail", "energymonth"]
+    ["devicedetail", "energyweek"]
   );
 
   return { devices, time, timeString };

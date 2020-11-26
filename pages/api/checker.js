@@ -7,7 +7,7 @@ import {
 export const fetchDevicePace = async (req) => {
   const { devices, timeString } = await fetchDetailedData(
     (device) => device.subDeviceNo === 1,
-    ["energymonth"]
+    ["energyweek"]
   );
 
   const [hours, minutes] = timeString.split(" ")[1].slice(0, -3).split(":");
