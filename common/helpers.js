@@ -123,3 +123,8 @@ export const messageOnError = async (wrappedFunction, endpoint) =>
 export const airtableTable = new Airtable({
   apiKey: process.env.AIRTABLE_KEY,
 }).base(process.env.AIRTABLE_BASE)(process.env.AIRTABLE_TABLE);
+
+export const chunk = (arr, size) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    arr.slice(i * size, i * size + size)
+  );
