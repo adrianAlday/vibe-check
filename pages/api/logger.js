@@ -1,11 +1,6 @@
-import { fetchDetailedData } from "../../common/helpers"; // import { messageOnError, fetchDetailedData } from "../../common/helpers";
-import Airtable from "airtable";
+import { fetchDetailedData, airtableTable } from "../../common/helpers"; // import { messageOnError, fetchDetailedData, airtableTable } from "../../common/helpers";
 
-const airtableTable = new Airtable({
-  apiKey: process.env.AIRTABLE_KEY,
-}).base(process.env.AIRTABLE_BASE)(process.env.AIRTABLE_TABLE);
-
-export const fetchDeviceUsage = async (req) => {
+export const fetchDeviceUsage = async () => {
   const { time, timeString, devices } = await fetchDetailedData(
     (device) => device.subDeviceNo === 1,
     ["energyweek"]
@@ -88,7 +83,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.LOGGER_KEY
     ? res.status(403).end()
-    : res.json(await fetchDeviceUsage(req)); //  res.json(await messageOnError(fetchDeviceUsage(req), "logger"));
+    : res.json(await fetchDeviceUsage()); //  res.json(await messageOnError(fetchDeviceUsage(), "logger"));
 };
 
 export default handler;

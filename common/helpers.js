@@ -1,6 +1,7 @@
 import axios from "axios";
 import MD5 from "md5.js";
 import twilio from "twilio";
+import Airtable from "airtable";
 
 export const baseRequest = {
   acceptLanguage: "en",
@@ -118,3 +119,7 @@ export const messageOnError = async (wrappedFunction, endpoint) =>
     await sendMessage(`${endpoint} error: ${error}`);
     return error;
   });
+
+export const airtableTable = new Airtable({
+  apiKey: process.env.AIRTABLE_KEY,
+}).base(process.env.AIRTABLE_BASE)(process.env.AIRTABLE_TABLE);
