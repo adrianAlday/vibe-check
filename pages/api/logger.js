@@ -25,12 +25,9 @@ export const fetchDeviceUsage = async () => {
 
       const lastTime = lastRecord?.time;
       const lastToday = lastRecord?.today;
-      const lastYesterday = lastRecord?.yesterday;
 
       const energySinceLastRecord =
-        today < lastToday
-          ? yesterday - lastYesterday + today
-          : today - lastToday;
+        today < lastToday ? yesterday - lastToday + today : today - lastToday;
 
       const deviceLastestUsageData = {
         deviceName,
