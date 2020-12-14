@@ -54,7 +54,7 @@ export const fetchDeviceUsage = async () => {
   );
 
   const requestedMessage = allDevicesLatestUsageData
-    .filter((data) => data.energySinceLastRecord < 1)
+    .filter((data) => data.energySinceLastRecord === 0)
     .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
     .map(
       (data) =>
@@ -69,7 +69,7 @@ export const fetchDeviceUsage = async () => {
     .join(", ");
 
   const message = requestedMessage
-    ? requestedMessage // await sendMessage(requestedMessage)
+    ? await sendMessage(requestedMessage)
     : "all good";
 
   return { message, timeString };
