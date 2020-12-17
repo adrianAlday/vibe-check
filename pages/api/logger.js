@@ -1,4 +1,11 @@
-import { fetchDetailedData, airtableTable } from "../../common/helpers"; // import { messageOnError, fetchDetailedData, airtableTable } from "../../common/helpers";
+import { fetchDetailedData, airtableTable } from "../../common/helpers";
+import {
+  messageOnError,
+  fetchDetailedData,
+  airtableTable,
+  sendMessage,
+} from "../../common/helpers";
+import axios from "axios";
 
 export const fetchDeviceUsage = async () => {
   const { time, timeString, devices } = await fetchDetailedData(
@@ -80,7 +87,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.LOGGER_KEY
     ? res.status(403).end()
-    : res.json(await fetchDeviceUsage()); //  res.json(await messageOnError(fetchDeviceUsage(), "logger"));
+    : res.json(await messageOnError(fetchDeviceUsage(), "logger"));
 };
 
 export default handler;
