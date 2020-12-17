@@ -1,11 +1,10 @@
-import { fetchDetailedData, airtableTable } from "../../common/helpers";
 import {
   messageOnError,
   fetchDetailedData,
   airtableTable,
   sendMessage,
 } from "../../common/helpers";
-import axios from "axios";
+// import axios from "axios";
 
 export const fetchDeviceUsage = async () => {
   const { time, timeString, devices } = await fetchDetailedData(
