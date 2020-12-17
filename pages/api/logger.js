@@ -69,9 +69,7 @@ export const fetchDeviceUsage = async () => {
       (data) =>
         `${data.deviceName}: ${data.energySinceLastRecord.toFixed(
           2
-        )}kWh used in the last ${(data.timeSinceLastRecord * 60).toFixed(
-          0
-        )} minutes`
+        )}kWh used in the last ${data.timeSinceLastRecord.toFixed(1)} hours`
     )
     .join(", ");
 
