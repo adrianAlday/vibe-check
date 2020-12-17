@@ -35,7 +35,7 @@ export const fetchDeviceUsage = async () => {
       const energySinceLastRecord =
         today < lastToday ? yesterday - lastToday + today : today - lastToday;
 
-      const timeSinceLastRecord = ((time - lastTime) / 1000 / 60).toFixed(0);
+      const timeSinceLastRecord = (time - lastTime) / 1000 / 60 / 60;
 
       const deviceLastestUsageData = {
         deviceName,
@@ -63,15 +63,15 @@ export const fetchDeviceUsage = async () => {
   );
 
   const requestedMessage = allDevicesLatestUsageData
-    .filter(
-      (data) => data.energySinceLastRecord === 0 && timeSinceLastRecord > 90
-    )
+    .filter((data) => data.timeSinceLastRecord > 1.5)
     .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
     .map(
       (data) =>
         `${data.deviceName}: ${data.energySinceLastRecord.toFixed(
           2
-        )}kWh used in the last ${data.timeSinceLastRecord} minutes`
+        )}kWh used in the last ${(data.timeSinceLastRecord * 60).toFixed(
+          0
+        )} minutes`
     )
     .join(", ");
 
