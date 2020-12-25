@@ -6,7 +6,7 @@ import {
 } from "../../common/helpers";
 // import axios from "axios";
 
-export const fetchDeviceUsage = async () => {
+export const fetchDeviceUsage = async (sendText) => {
   const { time, timeString, devices } = await fetchDetailedData(
     (device) => device.subDeviceNo === 1,
     ["energyweek"]
