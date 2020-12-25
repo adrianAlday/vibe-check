@@ -76,9 +76,10 @@ export const fetchDeviceUsage = async () => {
     )
     .join(", ");
 
-  const message = requestedMessage
-    ? await sendMessage(requestedMessage)
-    : "all good";
+  const message =
+    requestedMessage && sendText
+      ? await sendMessage(requestedMessage)
+      : "all good";
 
   return { message, timeString };
 };
@@ -88,7 +89,7 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.LOGGER_KEY
     ? res.status(403).end()
-    : res.json(await messageOnError(fetchDeviceUsage(), "logger"));
+    : res.json(await messageOnError(fetchDeviceUsage(req.query.text !== "false"), "logger"));
 };
 
 export default handler;
