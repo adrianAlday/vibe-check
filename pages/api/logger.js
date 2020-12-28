@@ -89,7 +89,12 @@ const handler = async (req, res) => {
     ? res.status(401).end()
     : req.query.auth !== process.env.LOGGER_KEY
     ? res.status(403).end()
-    : res.json(await messageOnError(fetchDeviceUsage(req.query.text !== "false"), "logger"));
+    : res.json(
+        await messageOnError(
+          fetchDeviceUsage(req.query.text !== "false"),
+          "logger"
+        )
+      );
 };
 
 export default handler;
