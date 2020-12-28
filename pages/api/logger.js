@@ -76,10 +76,11 @@ export const fetchDeviceUsage = async (sendText) => {
     )
     .join(", ");
 
-  const message =
-    requestedMessage && sendText
+  const message = requestedMessage
+    ? sendText
       ? await sendMessage(requestedMessage)
-      : "all good";
+      : requestedMessage
+    : "all good";
 
   return { message, timeString };
 };
