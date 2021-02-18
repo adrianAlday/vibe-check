@@ -64,9 +64,9 @@ export const fetchDeviceUsage = async (sendText) => {
 
   const requestedMessage = allDevicesLatestUsageData
     .filter(
-      (data) =>
-        data.energySinceLastRecord <= 0.01 ||
-        (data.timeSinceLastRecord >= 2 && data.energySinceLastRecord === 0)
+      ({ energySinceLastRecord, timeSinceLastRecord }) =>
+        (energySinceLastRecord === 0 && timeSinceLastRecord >= 2) ||
+        (energySinceLastRecord > 0 && energySinceLastRecord <= 0.02)
     )
     .sort((a, b) => (a.deviceName > b.deviceName ? 1 : -1))
     .map(
